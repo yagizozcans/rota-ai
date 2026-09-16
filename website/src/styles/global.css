@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+
+/* RotaAI brand tokens — dark, public-sector trust tone (PRD §7).
+   İnovasyon Moru (neon purple/violet) accent — premium, next-gen-AI tone. */
+@theme {
+  --color-ink-950: #0a0a0b;
+  --color-ink-900: #111113;
+  --color-ink-850: #17171a;
+  --color-ink-800: #1f1f23;
+  --color-ink-700: #2a2a30;
+  --color-ink-500: #6b6b76;
+  --color-ink-300: #a8a8b3;
+  --color-ink-100: #e6e6ea;
+
+  --color-brand-400: #c084fc; /* neon purple — bright accent / glow */
+  --color-brand-500: #a855f7; /* İnovasyon Moru — core */
+  --color-brand-600: #9333ea; /* deep violet — borders / depth */
+
+  --color-ok-400: #34d399;
+  --color-warn-400: #fbbf24;
+  --color-bad-400: #f87171;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Fira Code', Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+}
+
+/* Scroll-reveal (#5). JS adds .will-reveal only to elements that start BELOW the
+   fold — they're off-screen, so hiding them after paint causes no visible flash,
+   and above-fold content is never touched. .reveal--in (added on view, or by the
+   failsafe) shows them. Pure class specificity so the override always wins. */
+.will-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.will-reveal.reveal--in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .will-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

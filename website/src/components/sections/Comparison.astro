@@ -1,0 +1,50 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  comparison: SiteContent['comparison'];
+}
+const { comparison } = Astro.props;
+---
+
+<Section class="border-t border-ink-800">
+  <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{comparison.title}</h2>
+  <p class="mt-4 max-w-2xl text-lg text-ink-300">{comparison.intro}</p>
+
+  <div class="mt-10 overflow-x-auto">
+    <table class="w-full min-w-[560px] border-collapse text-left text-sm">
+      <thead>
+        <tr class="border-b border-ink-700 text-ink-300">
+          <th class="py-3 pr-4 font-medium"></th>
+          <th class="py-3 pr-4 font-semibold text-brand-400">RotaAI</th>
+          <th class="py-3 pr-4 font-medium">LiDAR taşeronu</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          comparison.rows.map((r) => (
+            <tr class="border-b border-ink-800">
+              <td class="py-3 pr-4 font-medium text-ink-100">{r.axis}</td>
+              <td class="py-3 pr-4 text-ink-300">
+                {r.isPlaceholder ? (
+                  <span class="italic text-ink-500">{r.rotaai}</span>
+                ) : (
+                  r.rotaai
+                )}
+              </td>
+              <td class="py-3 pr-4 text-ink-300">
+                {r.isPlaceholder ? (
+                  <span class="italic text-ink-500">{r.lidar}</span>
+                ) : (
+                  r.lidar
+                )}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-4 text-xs text-ink-500">{comparison.note}</p>
+</Section>

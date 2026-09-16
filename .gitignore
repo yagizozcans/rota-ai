@@ -30,3 +30,6 @@ node_modules/
 dist/
 dist-ssr/
 *.local
+
+# Internal Chrome extension (docs/10) — kept out of the repo
+maps-clean-capture/

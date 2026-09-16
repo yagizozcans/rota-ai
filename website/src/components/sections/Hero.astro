@@ -1,0 +1,30 @@
+---
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+import Pipeline from '../hero/Pipeline.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  hero: SiteContent['hero'];
+}
+const { hero } = Astro.props;
+---
+
+<Section id="top" class="pt-20 md:pt-28">
+  <div class="max-w-3xl">
+    <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-brand-400">
+      {hero.eyebrow}
+    </p>
+    <h1 class="text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+      {hero.title}
+    </h1>
+    <p class="mt-6 text-lg text-ink-300 md:text-xl">{hero.subtitle}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
+      <Button href={hero.secondaryCta.href} variant="ghost">{hero.secondaryCta.label}</Button>
+    </div>
+  </div>
+
+  <div class="mt-14 md:mt-16">
+    <Pipeline />
+  </div>
+</Section>

@@ -1,0 +1,23 @@
+---
+import Button from '../ui/Button.astro';
+interface Props {
+  brand: string;
+}
+const { brand } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b border-ink-800 bg-ink-950/80 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 md:px-8">
+    <a href="#top" class="flex items-center gap-2 font-bold tracking-tight">
+      <span class="inline-block h-2.5 w-2.5 rounded-full bg-brand-500"></span>
+      {brand}
+    </a>
+    <nav class="hidden items-center gap-6 text-sm text-ink-300 md:flex">
+      <a href="#nasil-calisir" class="hover:text-ink-100">Nasıl çalışır</a>
+      <a href="#tespit" class="hover:text-ink-100">Tespit</a>
+      <a href="#kimler-icin" class="hover:text-ink-100">Kimler için</a>
+      <a href="#sss" class="hover:text-ink-100">SSS</a>
+    </nav>
+    <Button href="#demo" class="!px-4 !py-2">Demo Talep Et</Button>
+  </div>
+</header>

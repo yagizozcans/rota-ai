@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+}
+const { title, description, lang = 'tr' } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="min-h-screen bg-ink-950 text-ink-100 antialiased">
+    <slot />
+    <script>
+      // Scroll-reveal (#5): hide only below-the-fold elements (no visible flash),
+      // reveal each on view; a failsafe guarantees content is never stuck hidden.
+      const targets = [...document.querySelectorAll('main > section, footer')];
+      const reveal = (el) => el.classList.add('reveal--in');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                reveal(e.target);
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        const fold = window.innerHeight * 0.9;
+        targets.forEach((el) => {
+          if (el.getBoundingClientRect().top > fold) el.classList.add('will-reveal');
+          io.observe(el);
+        });
+        // If the observer never fires (unsupported/blocked env), reveal all.
+        setTimeout(() => {
+          if (!document.querySelector('.reveal--in')) targets.forEach(reveal);
+        }, 1200);
+      }
+    </script>
+  </body>
+</html>

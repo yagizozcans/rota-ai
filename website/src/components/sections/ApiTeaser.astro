@@ -1,0 +1,50 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  apiTeaser: SiteContent['apiTeaser'];
+}
+const { apiTeaser } = Astro.props;
+---
+
+<Section class="border-t border-ink-800">
+  <div class="grid items-center gap-10 md:grid-cols-2">
+    <div>
+      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{apiTeaser.title}</h2>
+      <p class="mt-4 text-lg text-ink-300">{apiTeaser.intro}</p>
+      <ul class="mt-6 flex flex-wrap gap-2">
+        {
+          apiTeaser.formats.map((f) => (
+            <li class="rounded-md border border-ink-700 bg-ink-900 px-3 py-1 font-mono text-xs text-ink-100">
+              {f}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- GeoJSON export sample — real shape of GET /inventory/export (docs/04 §5) -->
+    <figure class="overflow-hidden rounded-xl border border-ink-800 bg-ink-950">
+      <figcaption
+        class="flex items-center gap-2 border-b border-ink-800 bg-ink-900 px-4 py-2.5 font-mono text-xs text-ink-300">
+        <span class="h-2.5 w-2.5 rounded-full bg-brand-500"></span>
+        inventory.geojson
+      </figcaption>
+      <pre class="overflow-x-auto px-4 py-4 font-mono text-xs leading-relaxed text-ink-300"><code
+><span class="text-ink-500">{'{'}</span>
+  <span class="text-brand-400">"type"</span>: <span class="text-ink-100">"FeatureCollection"</span>,
+  <span class="text-brand-400">"crs"</span>: <span class="text-ink-100">"EPSG:4326"</span>,
+  <span class="text-brand-400">"features"</span>: [{'{'}
+    <span class="text-brand-400">"type"</span>: <span class="text-ink-100">"Feature"</span>,
+    <span class="text-brand-400">"geometry"</span>: {'{'} <span class="text-brand-400">"type"</span>: <span class="text-ink-100">"Point"</span>,
+      <span class="text-brand-400">"coordinates"</span>: [<span class="text-ink-100">28.9784</span>, <span class="text-ink-100">41.0082</span>] {'}'},
+    <span class="text-brand-400">"properties"</span>: {'{'}
+      <span class="text-brand-400">"class"</span>:    <span class="text-ink-100">"levha"</span>,
+      <span class="text-brand-400">"severity"</span>: <span class="text-ink-100">"high"</span>,
+      <span class="text-brand-400">"status"</span>:   <span class="text-ink-100">"approved"</span>
+    {'}'}
+  {'}'}]
+<span class="text-ink-500">{'}'}</span></code></pre>
+    </figure>
+  </div>
+</Section>

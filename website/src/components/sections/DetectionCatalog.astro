@@ -1,0 +1,30 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  detectionCatalog: SiteContent['detectionCatalog'];
+}
+const { detectionCatalog } = Astro.props;
+---
+
+<Section id="tespit" class="border-t border-ink-800">
+  <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{detectionCatalog.title}</h2>
+  <p class="mt-4 max-w-2xl text-lg text-ink-300">{detectionCatalog.intro}</p>
+  <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      detectionCatalog.items.map((it) => (
+        <div class="rounded-xl border border-ink-800 bg-ink-900 p-6">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-semibold text-ink-100">{it.label}</h3>
+            {it.status === 'yakinda' && (
+              <span class="shrink-0 rounded-full border border-ink-700 px-2 py-0.5 text-xs text-ink-300">
+                yakında · eklenti
+              </span>
+            )}
+          </div>
+          <p class="mt-2 text-sm text-ink-300">{it.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>

@@ -1,0 +1,48 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  timeline: SiteContent['timeline'];
+}
+const { timeline } = Astro.props;
+---
+
+<Section class="border-t border-ink-800">
+  <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{timeline.title}</h2>
+  <p class="mt-4 max-w-2xl text-lg text-ink-300">{timeline.intro}</p>
+
+  <ol class="relative mt-12 grid gap-6 md:grid-cols-3">
+    <span
+      class="pointer-events-none absolute left-0 right-0 top-4 hidden h-px bg-gradient-to-r from-ink-700 via-brand-600/50 to-brand-500/60 md:block"
+      aria-hidden="true"></span>
+    {
+      timeline.phases.map((p, i) => {
+        const now = i === 1;
+        return (
+          <li class="relative">
+            <span
+              class:list={[
+                'relative z-10 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider',
+                now
+                  ? 'border-brand-400 bg-brand-500 text-ink-950'
+                  : 'border-ink-700 bg-ink-950 text-ink-300',
+              ]}
+            >
+              {now && <i class="h-1.5 w-1.5 rounded-full bg-ink-950" />}
+              {p.tag}
+            </span>
+            <div
+              class:list={[
+                'mt-4 rounded-xl border p-6 transition-colors',
+                now ? 'border-brand-600/40 bg-brand-600/10' : 'border-ink-800 bg-ink-900',
+              ]}
+            >
+              <h3 class="font-semibold text-ink-100">{p.title}</h3>
+              <p class="mt-2 text-sm text-ink-300">{p.body}</p>
+            </div>
+          </li>
+        );
+      })
+    }
+  </ol>
+</Section>

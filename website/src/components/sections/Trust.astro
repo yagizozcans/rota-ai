@@ -1,0 +1,26 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  trust: SiteContent['trust'];
+}
+const { trust } = Astro.props;
+---
+
+<Section class="border-t border-ink-800">
+  <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{trust.title}</h2>
+  <p class="mt-4 max-w-2xl text-lg text-ink-300">{trust.intro}</p>
+  <div class="mt-10 grid gap-6 md:grid-cols-2">
+    {
+      trust.points.map((p) => (
+        <div class="flex gap-4 rounded-xl border border-ink-800 bg-ink-900 p-6">
+          <span class="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-ok-400"></span>
+          <div>
+            <h3 class="font-semibold text-ink-100">{p.title}</h3>
+            <p class="mt-2 text-sm text-ink-300">{p.body}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>

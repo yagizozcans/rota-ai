@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
+import { content } from '../content/tr';
+---
+
+<Base
+  title={`KVKK & Gizlilik — ${content.meta.brand}`}
+  description="RotaAI KVKK ve gizlilik esasları."
+  lang={content.meta.lang}
+>
+  <main class="mx-auto max-w-3xl px-6 py-20">
+    <a href="/" class="text-sm text-ink-300 hover:text-ink-100">← Ana sayfa</a>
+    <h1 class="mt-6 text-4xl font-bold tracking-tight">KVKK & Gizlilik</h1>
+
+    <div class="mt-8 space-y-6 text-ink-300">
+      <section>
+        <h2 class="text-xl font-semibold text-ink-100">Toplanan veriler</h2>
+        <p class="mt-2 text-sm">
+          Demo formu yalnızca sizin girdiğiniz ad, kurum, e-posta ve (varsa) telefon ve mesaj
+          bilgilerini toplar. Bu bilgiler yalnızca demo talebinizi değerlendirmek ve sizinle
+          iletişim kurmak için kullanılır.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-ink-100">Görüntü verisi ve anonimleştirme</h2>
+        <p class="mt-2 text-sm">
+          RotaAI saha görüntülerinde plaka ve yüzler işleme sırasında otomatik olarak
+          bulanıklaştırılır. Kişisel veri anonimleştirilerek işlenir.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-ink-100">Kurum verisi ayrımı</h2>
+        <p class="mt-2 text-sm">
+          Her kurumun verisi kiracı anahtarı (org_id) ve satır düzeyi güvenlik (RLS) ile
+          mantıksal olarak izole edilir; bir kurumun verisine başka bir kurum erişemez.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-ink-100">Üçüncü taraf takip</h2>
+        <p class="mt-2 text-sm">
+          Bu sitede ağır üçüncü taraf takip/reklam altyapısı kullanılmaz. Form bilgileri
+          yalnızca RotaAI’nin kendi uç noktasına gönderilir.
+        </p>
+      </section>
+
+      <p class="text-xs text-ink-500">
+        Bu metin bilgilendirme amaçlıdır ve pilot aşamasında güncellenecektir.
+      </p>
+    </div>
+
+    <Button href="/#demo" class="mt-10">Demo Talep Et</Button>
+  </main>
+</Base>

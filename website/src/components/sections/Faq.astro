@@ -1,0 +1,25 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  faq: SiteContent['faq'];
+}
+const { faq } = Astro.props;
+---
+
+<Section id="sss" class="border-t border-ink-800">
+  <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{faq.title}</h2>
+  <div class="mt-8 max-w-3xl divide-y divide-ink-800 rounded-xl border border-ink-800 bg-ink-900">
+    {
+      faq.items.map((it) => (
+        <details class="group px-6 py-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-medium text-ink-100">
+            {it.q}
+            <span class="ml-4 text-ink-500 transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p class="mt-3 text-sm text-ink-300">{it.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</Section>

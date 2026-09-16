@@ -1,0 +1,96 @@
+---
+import Section from '../ui/Section.astro';
+import type { SiteContent } from '../../content/schema';
+interface Props {
+  finalCta: SiteContent['finalCta'];
+}
+const { finalCta } = Astro.props;
+
+const field =
+  'w-full rounded-lg border border-ink-700 bg-ink-950 px-4 py-3 text-sm text-ink-100 placeholder:text-ink-500 focus:border-brand-500 focus:outline-none';
+---
+
+<Section id="demo" class="border-t border-ink-800">
+  <div class="grid gap-10 md:grid-cols-2">
+    <div>
+      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">{finalCta.title}</h2>
+      <p class="mt-4 text-lg text-ink-300">{finalCta.body}</p>
+      <p class="mt-2 text-sm text-ink-500">{finalCta.formIntro}</p>
+    </div>
+
+    <form id="demo-form" class="grid gap-4" novalidate>
+      <div>
+        <input class={field} name="name" type="text" placeholder="Ad Soyad *" autocomplete="name" />
+        <p class="mt-1 hidden text-xs text-bad-400" data-error="name"></p>
+      </div>
+      <div>
+        <input class={field} name="org" type="text" placeholder="Kurum *" autocomplete="organization" />
+        <p class="mt-1 hidden text-xs text-bad-400" data-error="org"></p>
+      </div>
+      <div>
+        <input class={field} name="email" type="email" placeholder="E-posta *" autocomplete="email" />
+        <p class="mt-1 hidden text-xs text-bad-400" data-error="email"></p>
+      </div>
+      <div>
+        <input class={field} name="phone" type="tel" placeholder="Telefon (opsiyonel)" autocomplete="tel" />
+      </div>
+      <div>
+        <textarea class={field} name="message" rows="3" placeholder="Mesaj (opsiyonel)"></textarea>
+      </div>
+      <p class="hidden text-sm text-bad-400" data-error="_form"></p>
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-brand-400 disabled:opacity-60"
+      >
+        Demo Talep Et
+      </button>
+      <p class="text-xs text-ink-500">
+        Bilgileriniz yalnızca demo talebiniz için kullanılır (KVKK). Üçüncü taraf takip yok.
+      </p>
+    </form>
+  </div>
+</Section>
+
+<script>
+  import { submitLead } from '../../lib/demo-lead/submit';
+
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  if (form) {
+    const clearErrors = () => {
+      form.querySelectorAll<HTMLElement>('[data-error]').forEach((el) => {
+        el.textContent = '';
+        el.classList.add('hidden');
+      });
+    };
+    const showErrors = (errors: Record<string, string>) => {
+      for (const [key, msg] of Object.entries(errors)) {
+        const el = form.querySelector<HTMLElement>(`[data-error="${key}"]`);
+        if (el) {
+          el.textContent = msg;
+          el.classList.remove('hidden');
+        }
+      }
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearErrors();
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      btn.disabled = true;
+      const fd = new FormData(form);
+      const res = await submitLead({
+        name: String(fd.get('name') ?? ''),
+        org: String(fd.get('org') ?? ''),
+        email: String(fd.get('email') ?? ''),
+        phone: String(fd.get('phone') ?? ''),
+        message: String(fd.get('message') ?? ''),
+      });
+      if (res.ok) {
+        window.location.href = '/tesekkurler';
+      } else {
+        showErrors(res.errors ?? { _form: 'Gönderim başarısız.' });
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
